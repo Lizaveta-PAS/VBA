@@ -1,0 +1,52 @@
+Option Explicit
+
+Public Function Объединить(Диапазон As Range, Разделитель As String, ПропускатьПустыеЯчейки As Boolean, ПоСтрокам As Boolean) As String
+
+Dim RowNumber As Long, ColNumber As Integer
+Dim i As Long, j As Integer
+Dim Str As String
+
+RowNumber = Диапазон.Rows.Count
+
+ColNumber = Диапазон.Columns.Count
+
+If ПоСтрокам Then
+
+   For i = 1 To RowNumber
+       For j = 1 To ColNumber
+
+           If Not (ПропускатьПустыеЯчейки And IsEmpty(Диапазон.Cells(i, j))) Then
+
+              Str = Str & Диапазон.Cells(i, j) & Разделитель
+
+           End If
+
+           
+       Next j
+   Next i
+
+Else
+
+  For j = 1 To ColNumber
+
+       For i = 1 To RowNumber
+
+           If Not (ПропускатьПустыеЯчейки And IsEmpty(Диапазон.Cells(i, j))) Then
+
+              Str = Str & Диапазон.Cells(i, j) & Разделитель
+
+           End If
+
+           
+       Next i
+
+   Next j
+
+
+End If
+
+Объединить = Left(Str, Len(Str) - Len(Разделитель))
+
+
+End Function
+
